@@ -1,3 +1,9 @@
+'''
+
+Script for Selecting a material 
+and replace it by another 
+
+'''
 # standard library import ---------
 import bpy
 # Local imports ---------
@@ -73,26 +79,26 @@ class Replace_Materials(bpy.types.Operator):
 
 # FONCTIONS --------
 
-    # create and delete a data block to update despgraph
-    # And Keep actual selection
+# create and delete a data block to update despgraph
+# And Keep actual selection
 def UpdateDespGraph():
   
     Item = []
-   
+    # Get selected object
     for obj in bpy.context.selected_objects:
         Item.append( str(obj.name) )
-
+    # Hack refresh despgraph
     bpy.ops.mesh.primitive_cube_add()
     bpy.ops.object.delete() 
-
+    # Re-select previously selected object
     for key in Item :
         bpy.data.objects[key].select_set(True)
 
-    # Replace all materials mtr by mr 
+# Replace all materials mtr by mr 
 def MATERIAL_REPLACE(mtr, mr):
-    
+    #selecting all object in scene
     objects = bpy.context.scene.objects
-
+    # inspecting in all mats
     for obj in objects:
         if obj.type == "MESH":
             i = -1
@@ -101,7 +107,7 @@ def MATERIAL_REPLACE(mtr, mr):
                 if mat.name == str(mtr):
                     obj.data.materials[i] = bpy.data.materials[str(mr)]
 
-# Update Materials Utils Pannel if Mat change
+# Update Materials Utils Pannel if Material is added or removed
 def UpdateProperty():
  
     # Get mat
