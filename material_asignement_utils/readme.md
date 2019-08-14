@@ -1,4 +1,4 @@
-# CollectionToHierarchy.py
+# Material asignements utils
 
 ## Material Replace
 
