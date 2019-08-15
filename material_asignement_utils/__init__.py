@@ -1,15 +1,3 @@
-# standard library import ---------
-
-import bpy
-from bpy.app.handlers import persistent
-
-# Local imports ---------
-
-# Module for replace materials
-from . import material_utils_replace_materials
-# globals variables shared by multiples scripts
-from . import material_utils_global_variable
-
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
 #  This program is free software; you can redistribute it and/or
@@ -30,6 +18,28 @@ from . import material_utils_global_variable
 
 # <pep8 compliant>
 
+# standard library import ---------
+
+#------------------------------
+# IMPORT
+#------------------------------
+
+import bpy
+from bpy.app.handlers import persistent 
+
+# Local imports ---------
+
+# Initialisation of Main ui
+from . import material_utils_ui
+# function and operator for replace materials
+from . import material_utils_replace_materials
+# globals variables shared by multiples scripts
+from . import material_utils_global_variable
+
+#------------------------------
+# ADD ON INFO
+#------------------------------
+
 bl_info = {
     "name": "Material asignement utils",
     "author": "Matthis Pralat",
@@ -43,17 +53,18 @@ bl_info = {
 }
 
 
-
 #------------------------------
 # LISTENERS / HANDLER
 #------------------------------
 
 # Hear depsgraph change 
+
 # On each blender action call init handler
 @persistent
 def material_utils_handler_listener():
     bpy.app.handlers.depsgraph_update_pre.append(init_handler)
 
+# clear listener if Add On desactivate 
 def material_utils_clear_handler_listener():
     bpy.app.handlers.depsgraph_update_pre.clear(init_handler)
 
@@ -65,16 +76,20 @@ def init_handler(scene):
         print("Material Update")
         material_utils_replace_materials.UpdateProperty()
 
+#------------------------------
+# REGISTER / UNREGISTER / INIT
+#------------------------------
 
 def register():
+    material_utils_ui.register()
     material_utils_replace_materials.register()
     material_utils_handler_listener()
 
 
 def unregister():
+    material_utils_ui.unregister()
     material_utils_replace_materials.unregister()
     material_utils_clear_handler_listener()
-
 
 if __name__ == "__main__":
     register()

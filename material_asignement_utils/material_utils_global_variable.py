@@ -14,3 +14,4 @@ import bpy
 init = False # first launch
 materialNum = 0 # current material number in the scene
 allMaterials =  [('none','none','none')] # init Enum Property
+LinkedLibrary =  [('none','none','none')]
