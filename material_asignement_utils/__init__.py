@@ -73,7 +73,10 @@ def material_utils_clear_handler_listener():
 @persistent
 def init_handler(scene):
     if material_utils_global_variable.materialNum != len(bpy.data.materials):
-        print("Material Update")
+        print("Material Utils Update")
+        material_utils_replace_materials.UpdateProperty()
+    if material_utils_global_variable.init  == False :
+        print("Material Utils Update")
         material_utils_replace_materials.UpdateProperty()
 
 #------------------------------
@@ -87,6 +90,7 @@ def register():
 
 
 def unregister():
+    material_utils_global_variable.init = False
     material_utils_ui.unregister()
     material_utils_replace_materials.unregister()
     material_utils_clear_handler_listener()

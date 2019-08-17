@@ -139,6 +139,7 @@ class Backface_Material(bpy.types.Operator):
             mat.use_backface_culling = True
 
         return {'FINISHED'}
+        
 class NoBackface_Material(bpy.types.Operator):
     """  Unset Backface boolean for all materials """
 
@@ -149,6 +150,22 @@ class NoBackface_Material(bpy.types.Operator):
         for mat in bpy.data.materials:
             mat.use_backface_culling = False
 
+        return {'FINISHED'}
+
+class MaterialSlotsClean(bpy.types.Operator):
+    """  Clear unused materials slots 
+         1 - Check if double mat
+         2 - Reasign Double mat
+         3 - Clean unused materials slots  
+    """
+
+    bl_idname = "material_utilities.clean_materials_slots"
+    bl_label = "Clean material slots"
+
+    def execute(self, context):
+        for obj in bpy.data.objects:
+            Mslots_doubles(obj)
+            clearUnusedMatSlot(obj)
         return {'FINISHED'}
 
 # FUNCTIONS --------
@@ -227,10 +244,72 @@ def UpdateProperty():
     material_utils_global_variable.materialNum = len(bpy.data.materials) 
 
 
+# for passed objects, clear unused material slot
+def clearUnusedMatSlot(obj):
+    i = 0
+    rMatslots ={}
+    matslots = {}
+
+    if len(obj.material_slots) > 0: 
+        
+        # first loop for material slots
+        for mats in obj.material_slots:
+            matslots.update({str(i) : str(mats.name) } )
+            i= i + 1
+
+        # Loop to know if slot mesh is used
+        for face in obj.data.polygons:
+            if str(face.material_index) in matslots:
+                del matslots[str(face.material_index)]
+
+        # Matslot reverse order
+        rMatslots = sorted(matslots, reverse=True)
+
+        # If index found delete Matslot
+        for uMat in rMatslots:
+            obj.active_material_index = int(uMat)
+            # overide context
+            ctx = bpy.context.copy ()
+            ctx['object'] = obj
+            # delete operator
+            bpy.ops.object.material_slot_remove(ctx)
+
+# Find doubles In object if found  Mslots_Reasign(obj)
+def Mslots_doubles(obj):
+    # set var to be read elswere
+    global Context_M, Context_Doubles_M, Double
+    Context_M = {}
+    Context_Doubles_M = {}
+    Double = False
+      
+    # check if obj have multiple slot
+    if len(obj.material_slots) > 0:
+        i = 0
+        for m_slots in obj.material_slots:
+
+            # set double index matslot and good index as value
+            if m_slots.name in Context_M:
+                Double = True
+                name = str(m_slots.name)
+                Context_Doubles_M.update({i:Context_M[name]})
+
+            # set material name as index with the index of mat slot as value
+            else:
+                Context_M.update({m_slots.name: i})
+            i = i + 1
+    # if the mesh has double second loop 
+    if Double == True:
+        Mslots_reasign(obj)
+
+def Mslots_reasign(obj):
+
+    for face in obj.data.polygons:
+        if face.material_index in Context_Doubles_M:
+            face.material_index = Context_Doubles_M[face.material_index]
 
 # EXECUTION -------
 
-classes = [ 
+classes = [
     Replace_Materials,
     Replace_Materials_By_MaterialLinked,
     Replace_Materials_Linked_Advanced,
@@ -238,6 +317,7 @@ classes = [
     Remove_Unused_Materials,
     Backface_Material,
     NoBackface_Material,
+    MaterialSlotsClean,
     ]
 
 

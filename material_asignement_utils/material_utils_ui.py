@@ -79,6 +79,9 @@ class MaterialUtilsPanel(bpy.types.Panel):
         #--   ITERATIVE MATERIAL REPLACE OPERATOR
         row = box.row()
         row.operator("material_utilities.remove_unused_materials")
+        #-- Clean Materials Slots
+        row = box.row()
+        row.operator("material_utilities.clean_materials_slots")
        
         # --- BackFace/UnbackFace All Material
         #--
