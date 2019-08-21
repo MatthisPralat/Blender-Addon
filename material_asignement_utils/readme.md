@@ -41,6 +41,13 @@ Clean up unused materials without reloading blender.
 
 ![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/Remove_Unused_Materials.gif)
 
+**Clean Material Slots**
+
+-- new -- 
+Remap materials duplicata for each object and remove unused materials slots
+
+![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/CleanMaterialSlots.gif)
+
 ## Backfaces
 
 Activate / Desactivate Backface culling for every (non-linked) Materials 
