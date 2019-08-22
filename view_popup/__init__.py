@@ -75,6 +75,7 @@ class TOPBAR_HT_popup_editor(Header):
         layout.operator("popup.open_viewtd", icon='VIEW3D')
         layout.operator("popup.open_uv", icon='UV')
         layout.operator("popup.open_shader", icon='NODE_MATERIAL')
+        layout.operator("popup.open_layout", icon='NODE_MATERIAL')
 
 
 # ------------------------------
@@ -82,8 +83,8 @@ class TOPBAR_HT_popup_editor(Header):
 # ------------------------------
 
 class Popup_View3D(bpy.types.Operator):
-    """  Replace all materials setted in MaterialToReplace 
-         by the setted material in material replace
+    """
+        Create View 3D popup
     """
 
     bl_idname = "popup.open_viewtd"
@@ -95,8 +96,8 @@ class Popup_View3D(bpy.types.Operator):
 
 
 class Popup_UV(bpy.types.Operator):
-    """  Replace all materials setted in MaterialToReplace 
-         by the setted material in material replace
+    """
+       Create UV popup
     """
 
     bl_idname = "popup.open_uv"
@@ -119,6 +120,18 @@ class Popup_Shader(bpy.types.Operator):
         Popup("NODE_EDITOR")
         return {'FINISHED'}
 
+class Popup_Layout(bpy.types.Operator):
+    """
+       Create UV popup
+    """
+
+    bl_idname = "popup.open_uv"
+    bl_label = ""
+
+    def execute(self, context):
+        Popup("IMAGE_EDITOR")
+        return {'FINISHED'}
+
 
 def Popup(selArea):
     # Modify scene settings
@@ -134,7 +147,7 @@ def Popup(selArea):
     # Change area type
     area = bpy.context.window_manager.windows[-1].screen.areas[0]
     if selArea == "IMAGE_EDITOR" :
-        area.type = bpy.context.area.ui_type('UV')
+        area.ui_type('UV')
 
 
     else:
@@ -149,6 +162,7 @@ classes = (
     Popup_View3D,
     Popup_UV,
     Popup_Shader,
+    Popup_Layout,
     TOPBAR_HT_popup_editor,
     )
 
