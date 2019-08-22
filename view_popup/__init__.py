@@ -20,17 +20,16 @@
 
 # standard library import ---------
 
-#------------------------------
+# ------------------------------
 # IMPORT
-#------------------------------
+# ------------------------------
 
 import bpy
 from bpy.types import Header, Menu, Panel
 
-
-#------------------------------
+# ------------------------------
 # ADD ON INFO
-#------------------------------
+# ------------------------------
 
 bl_info = {
     "name": "Editor Popup",
@@ -45,9 +44,9 @@ bl_info = {
 }
 
 
-#------------------------------
+# ------------------------------
 # Add PanneL
-#------------------------------
+# ------------------------------
 
 class TOPBAR_HT_popup_editor(Header):
     bl_space_type = 'TOPBAR'
@@ -57,31 +56,6 @@ class TOPBAR_HT_popup_editor(Header):
 
         if region.alignment == 'RIGHT':
             self.draw_right(context)
-        else:
-            self.draw_left(context)
-            
-    def draw_left(self, context):
-        layout = self.layout
-
-        window = context.window
-        screen = context.screen
-
-        TOPBAR_MT_editor_menus.draw_collapsible(context, layout)
-
-        layout.separator()
-
-        if not screen.show_fullscreen:
-            layout.template_ID_tabs(
-                window, "workspace",
-                new="workspace.add",
-                menu="TOPBAR_MT_editor_popup_menu",
-            )
-        else:
-            layout.operator(
-                "screen.back_to_previous",
-                icon='SCREEN_BACK',
-                text="TOPBAR_MT_editor_popup_menu",
-            )
             
     def draw_right(self, context):
         layout = self.layout
@@ -99,45 +73,99 @@ class TOPBAR_HT_popup_editor(Header):
         layout = self.layout
         layout.separator()
         layout.operator("popup.open_viewtd", icon='VIEW3D')
-        layout.operator("popup.open_viewtd", icon='UV')
-        layout.operator("popup.open_viewtd", icon='NODE_MATERIAL')
-        #layout.operator("test.replace_materials", icon='TRIA_LEFT_BAR')
-        #layout.operator("test.replace_materials", icon='TRIA_LEFT_BAR')
-        #layout.operator("test.replace_materials", icon='TRIA_LEFT_BAR')
- 
-    
-class TOPBAR_MT_editor_popup_menu(Menu):
-    bl_label = "Workspace"
-
-    def draw(self, _context):
-        layout = self.layout
-        layout.separator()
-        layout.operator("test.replace_materials", icon='TRIA_LEFT_BAR')
+        layout.operator("popup.open_uv", icon='UV')
+        layout.operator("popup.open_shader", icon='NODE_MATERIAL')
+        layout.operator("popup.open_layout", icon='NODE_MATERIAL')
 
 
-#------------------------------
+# ------------------------------
 # OPPERATOR
-#------------------------------            
+# ------------------------------
 
 class Popup_View3D(bpy.types.Operator):
-    """  Replace all materials setted in MaterialToReplace 
-         by the setted material in material replace
+    """
+        Create View 3D popup
     """
 
     bl_idname = "popup.open_viewtd"
     bl_label = ""
 
     def execute(self, context):
-        print("hello")
+        Popup("VIEW_3D")
         return {'FINISHED'}
 
 
+class Popup_UV(bpy.types.Operator):
+    """
+       Create UV popup
+    """
+
+    bl_idname = "popup.open_uv"
+    bl_label = ""
+
+    def execute(self, context):
+        Popup("IMAGE_EDITOR")
+        return {'FINISHED'}
+
+
+class Popup_Shader(bpy.types.Operator):
+    """  Replace all materials setted in MaterialToReplace 
+         by the setted material in material replace
+    """
+
+    bl_idname = "popup.open_shader"
+    bl_label = ""
+
+    def execute(self, context):
+        Popup("NODE_EDITOR")
+        return {'FINISHED'}
+
+class Popup_Layout(bpy.types.Operator):
+    """
+       Create UV popup
+    """
+
+    bl_idname = "popup.open_uv"
+    bl_label = ""
+
+    def execute(self, context):
+        Popup("IMAGE_EDITOR")
+        return {'FINISHED'}
+
+
+def Popup(selArea):
+    # Modify scene settings
+    render = bpy.context.scene.render
+    render.resolution_x = 640
+    render.resolution_y = 480
+    render.resolution_percentage = 100
+    render.display_mode = "WINDOW"
+
+    # Call image editor window
+    bpy.ops.render.view_show("INVOKE_DEFAULT")
+
+    # Change area type
+    area = bpy.context.window_manager.windows[-1].screen.areas[0]
+    if selArea == "IMAGE_EDITOR" :
+        area.ui_type('UV')
+
+
+    else:
+         area.type = selArea
+
+    # Restore scene settings
+    # render.resolution_x = original_value
+    # etc.
+
 
 classes = (
-    Replace_Materials2,
-    TOPBAR_MT_editor_popup_menu,
+    Popup_View3D,
+    Popup_UV,
+    Popup_Shader,
+    Popup_Layout,
     TOPBAR_HT_popup_editor,
     )
+
 
 def register():
     for cls in classes:
@@ -146,8 +174,8 @@ def register():
 
 def unregister():
    for cls in classes:
-    bpy.utils.unregister_class(cls)
-    print("GoodBye")
+        bpy.utils.unregister_class(cls)
+        print("GoodBye")
 
 if __name__ == "__main__":
     register()
