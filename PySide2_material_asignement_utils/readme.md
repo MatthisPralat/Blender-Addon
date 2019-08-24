@@ -13,8 +13,9 @@ It's a quick and dirty integration ! just for the proof and concept
 To use PySide2 you must install pip and PySide2, on windows. I made a button to do that automaticly, and now you can even install your favorite modules from pip inside blender !
 ! open the console to watch the instalation of pip and PySide2 in **Window > Toogle System Console** > ! or make you a cofee and wait 5 minutes.
 
-If pip and pyside2 are installed, pip instalation will be hiden
-![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/PySide2_material_asignement_utils/PySide2_documentation_Img/PysidePannel.PNG)
+If pip or PySide2 aren't install you will see that button  otherwise you will see my exemple
+![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/PySide2_material_asignement_utils/PySide2_documentation_Img/PipInstall2.gif)
+
 
 
 ## QT designer interface
