@@ -32,7 +32,7 @@ from bpy.types import Header, Menu, Panel
 # ------------------------------
 
 bl_info = {
-    "name": "Editor Popup",
+    "name": "Quick Editor Popup",
     "author": "Matthis Pralat",
     "version": (1, 0),
     "blender": (2, 80, 0),
@@ -56,7 +56,7 @@ class TOPBAR_HT_popup_editor(Header):
 
         if region.alignment == 'RIGHT':
             self.draw_right(context)
-            
+
     def draw_right(self, context):
         layout = self.layout
 
@@ -109,7 +109,7 @@ class Popup_UV(bpy.types.Operator):
 
 
 class Popup_Shader(bpy.types.Operator):
-    """  Replace all materials setted in MaterialToReplace 
+    """  Replace all materials setted in MaterialToReplace
          by the setted material in material replace
     """
 
@@ -119,6 +119,7 @@ class Popup_Shader(bpy.types.Operator):
     def execute(self, context):
         Popup("NODE_EDITOR")
         return {'FINISHED'}
+
 
 class Popup_Layout(bpy.types.Operator):
     """
@@ -146,12 +147,12 @@ def Popup(selArea):
 
     # Change area type
     area = bpy.context.window_manager.windows[-1].screen.areas[0]
-    if selArea == "IMAGE_EDITOR" :
-        area.ui_type('UV')
+    if selArea == "IMAGE_EDITOR":
+        area.ui_type = 'UV'
 
 
     else:
-         area.type = selArea
+        area.type = selArea
 
     # Restore scene settings
     # render.resolution_x = original_value
@@ -164,7 +165,7 @@ classes = (
     Popup_Shader,
     Popup_Layout,
     TOPBAR_HT_popup_editor,
-    )
+)
 
 
 def register():
@@ -173,9 +174,10 @@ def register():
 
 
 def unregister():
-   for cls in classes:
+    for cls in classes:
         bpy.utils.unregister_class(cls)
         print("GoodBye")
+
 
 if __name__ == "__main__":
     register()
