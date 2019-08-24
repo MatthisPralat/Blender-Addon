@@ -11,8 +11,27 @@ Init Interface for Material Utils
 
 import bpy
 import subprocess
-from . import PySide2_MaterialUi
 
+def module_installed(self):
+    print('mom module: ', self)
+    moduleStatus = True
+    try:
+        code = 'import ' + self
+        exec (code)
+    except ImportError:
+        moduleStatus = False
+
+    if moduleStatus == False:
+        print('module', self, 'not set')
+    if moduleStatus == True:
+        print('module', self, 'is set')
+
+    return moduleStatus
+
+if module_installed('PySide2'):
+    from . import PySide2_MaterialUi
+else:
+    print("INSTALL2 !")
 # Main ui
 class MaterialUtilsPanel2(bpy.types.Panel):
     bl_label = "Pip Module"
@@ -189,6 +208,8 @@ classes = [
     uninstall_pyside2,
     MaterialUtilsPanel2,
     ]
+
+
 
 def register():
     for cls in classes:
