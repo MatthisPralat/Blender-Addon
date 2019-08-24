@@ -27,22 +27,24 @@ class MaterialUtilsPanel2(bpy.types.Panel):
         props = context.scene.PipUtilsPropertyGroup
 
         row = layout.row()
-        if module_installed('PySide2') == False :
+        if module_installed('pip') == False or  module_installed('PySide2') == False :
             layout.label(text="Install PySide2 ")
             row = layout.row()
             row.operator("modules_utils.pip_pyside2")
+
         else:
             layout.label(text="PySide2 Exemple ")
             row = layout.row()
             row.operator("material_utils.display_py_window")
+            layout.label(text="Custom pip Module ")
+            box = layout.box()
+            row = box.row()
+            row.prop(props, "newModuleName")
+            row = box.row()
+            row.operator("modules_utils.pip_custom")
+            row.operator("modules_utils.unpip_custom")
 
-        layout.label(text="Custom pip Module ")
-        box = layout.box()
-        row = box.row()
-        row.prop(props, "newModuleName")
-        row = box.row()
-        row.operator("modules_utils.pip_custom")
-        row.operator("modules_utils.unpip_custom")
+
 
 
 class PipUtilsPropertyGroup( bpy.types.PropertyGroup ):
