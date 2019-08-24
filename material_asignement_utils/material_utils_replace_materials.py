@@ -48,7 +48,7 @@ class Replace_Itterative_Materials(bpy.types.Operator):
         for mat in bpy.data.materials:
             name = mat.name #exemple : material.001
             baseName = name[:-4] # = material
-            Point = name[-4:] # = . 
+            Point = name[-4] # = .
             iterationName = name[-3:] # = 001
 
             if iterationName.isdigit() == True :
