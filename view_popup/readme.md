@@ -2,6 +2,7 @@
 
 ## Create One or two popup
 
-Click on one icon on the header, and create a popup on the render or preference editor with your panel
+Click on the icon on your header and open a Po Pup!
+  This is just a replacement of your interface in the render windows but it can be usefull if you like to just open one window as a popup.
 
-![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/Material_Replace.gif)
+![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/view_popup/QuickPopup/Quick_Popup.gif)
