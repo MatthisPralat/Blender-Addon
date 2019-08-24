@@ -1,26 +1,36 @@
-# Material asignements utils
+# PYSIDE 2 Exemple 
+with materials utils
+Quick and dirty documentation
 
-## Material Replace
+![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/PySide2_material_asignement_utils/PySide2_documentation_Img/PySide2_Exemple.gif)
 
-For each object Replace a selected material by another selected material on the list
-
-![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/Material_Replace.gif)
-
-## Quick Link material replace
-
-For each object replace **material** by is **linked material**. If the name is the same. 
-Will replace it by the last linked material found. 
-*If multiple linked material are the same use Link material replace to select specific linked library.*
-
-![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/Linked_material_replace.gif)
+This is an integration of PySide2 in blender with button interactions with the Blender Editor. 
+It's a quick and dirty integration ! just for the proof and concept
 
 
-## Link material replace
+## Install Pip
 
-Replace all similar materials in your scene from linked material specified by your selected linked library 
-![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/Linked_material_replace_adv.gif)
+To use PySide2 you must install pip and PySide2, on windows. I made a button to do that automaticly, and now you can even install your favorite modules from pip inside blender !
+! open the console to watch the instalation of pip and PySide2 in **Window > Toogle System Console** > ! or make you a cofee and wait 5 minutes.
 
-## Cleaning Materials
+If pip and pyside2 are installed, pip instalation will be hiden
+![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/PySide2_material_asignement_utils/PySide2_documentation_Img/PysidePannel.PNG)
+
+
+## QT designer interface
+
+the interface is made with QT designer. You can find it in your PySide2 folder inside your blender instalation file 
+...\Blender\2.80\python\lib\site-packages\PySide2
+
+![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/PySide2_material_asignement_utils/PySide2_documentation_Img/PyQt_Sample.PNG)
+
+
+## QSS styleShett
+
+You can customise your window style with Qss file, you can find samples in the style sheet folder inside this package
+![](https://raw.githubusercontent.com/MatthisPralat/Blender-Addon/master/PySide2_material_asignement_utils/PySide2_documentation_Img/PySidePopUp_Styling.PNG)
+
+## Example Buttons
 
 **Itterative material replace**
 
@@ -43,13 +53,9 @@ Clean up unused materials without reloading blender.
 
 **Clean Material Slots**
 
--- new -- 
-Remap materials duplicata for each object and remove unused materials slots
+ for each object Remap materials duplicates and remove unused materials slots
 
 ![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/CleanMaterialSlots.gif)
 
-## Backfaces
-
-Activate / Desactivate Backface culling for every (non-linked) Materials 
-
-![](http://www.matthispralat.fr/wp-content/uploads/2019/MaterialReplace/Back_FaceMat.gif)
+## Create Suzanne
+Create a a Suzanne mesh
