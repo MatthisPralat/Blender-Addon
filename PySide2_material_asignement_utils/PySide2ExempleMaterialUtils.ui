@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>342</height>
+    <height>346</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -126,21 +126,21 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
-            <widget class="QPushButton" name="IteMatBtn_3">
+            <widget class="QPushButton" name="IteMatBtn_all">
              <property name="text">
               <string>Itterative material replace</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="RemUnMat_3">
+            <widget class="QPushButton" name="RemUnMat_all">
              <property name="text">
               <string>Remove Unused Materials</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="CleanMat_3">
+            <widget class="QPushButton" name="CleanMat_all">
              <property name="text">
               <string>Clean Material Slots</string>
              </property>
@@ -180,27 +180,13 @@
            </size>
           </property>
           <property name="title">
-           <string>Cleaning Material - Context</string>
+           <string>Simple Tests</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
-            <widget class="QPushButton" name="IteMatBtn_4">
+            <widget class="QPushButton" name="Suzanne">
              <property name="text">
-              <string>Itterative material replace</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="RemUnMat_4">
-             <property name="text">
-              <string>Remove Unused Materials</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="CleanMat_4">
-             <property name="text">
-              <string>Clean Material Slots</string>
+              <string>Create Suzanne</string>
              </property>
             </widget>
            </item>
