@@ -48,8 +48,10 @@ def module_installed(self):
         print('module', self, 'is set')
 
     return moduleStatus
+
 if module_installed('PySide2'):
     from . import PySide2_MaterialUi
+
 else:
     print("INSTALL2 !")
 
@@ -79,13 +81,15 @@ bl_info = {
 
 def register():
     PipModule.register()
-    PySide2_MaterialUi.register()
+    if module_installed('PySide2'):
+        PySide2_MaterialUi.register()
     Opperators.register()
 
 
 def unregister():
     PipModule.unregister()
-    PySide2_MaterialUi.unregister()
+    if module_installed('PySide2'):
+        PySide2_MaterialUi.unregister()
     Opperators.unregister()
 
 
