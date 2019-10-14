@@ -1,0 +1,125 @@
+
+QApplication,
+QMainWindow, QFrame, QDockWidget, QDialog, QFileDialog, QMessageBox{
+    background: white;
+    border: none;
+    color: #212121;
+}
+
+QToolBar {
+    background: #0097A7;
+    color: white;
+}
+
+/* Input */
+
+/* Button */
+
+QPushButton[flat] {
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    min-height: 36px;
+    min-width: 60px;
+    padding: 0 5px;
+}
+
+QPushButton:hover {
+    background: #E0E0E0;
+}
+QPushButton:pressed {
+    background: #999999;
+}
+
+/* Text */
+
+QLineEdit {
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 10px;
+    padding-bottom: 9px;
+}
+
+QLineEdit:focus {
+    border-width: 2px;
+    border-color: #00BCD4;
+    padding-bottom: 8px;
+}
+
+/* checkbox */
+
+QCheckBox::indicator {
+    border: 2px solid #999999;
+    border-radius: 1px;
+}
+
+QCheckBox::indicator:checked {
+    border-color: #00BCD4;
+    background: #00BCD4;
+}
+
+/* Radio */
+QRadioButton {
+    height 10px;
+    padding: 5px;
+}
+
+QRadioButton::indicator{ 
+    border: 2px solid #999999; 
+    border-radius: 6px;
+    background-color: white; 
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+}
+
+QRadioButton::indicator::checked{ 
+    border-color: #00BCD4;
+    background-color: #00BCD4;
+}
+
+/* tab-bar */
+
+QTabBar::tab {
+    padding: 10px 30px;
+    border-bottom: 2px solid #E0E0E0;
+}
+
+QTabBar::tab:selected,
+QTabBar::tab:hover {
+    border-color: #00BCD4;
+    color: #00BCD4;
+}
+
+QTabBar QToolButton {
+    border: none;
+    background-color: #00BCD4;
+}
+
+QTabBar QToolButton::disabled {
+    border: 0;
+}
+
+QTabWidget::pane {
+    border: none;
+}
+
+/* Table */
+
+QTableWidget,
+QTableView {
+    background: white;
+    border: none;
+}
+
+QTableView::item {
+    border: none;
+}
+
+QHeaderView {
+    color: #757575;
+}
+
+QHeaderView::section {
+    border: none;
+}
