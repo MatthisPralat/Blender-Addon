@@ -25,7 +25,6 @@ def module_installed(self):
         print('module', self, 'not set')
     if moduleStatus == True:
         print('module', self, 'is set')
-
     return moduleStatus
 
 if module_installed('PySide2'):
