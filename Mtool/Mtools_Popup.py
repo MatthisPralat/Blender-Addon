@@ -28,27 +28,23 @@ class Open_Mtools_Popup(bpy.types.Operator):
 #-------------
 # Main Window
 #-------------
-class Window(QtWidgets.QWidget):
+class Window(QtCore.QObject):
 
     def __init__(self, parent=None):
         super(Window,self).__init__(parent)
-        self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowStaysOnTopHint)
-
         self.load_interface()
         # interface
-        script_path = os.path.realpath(__file__)
-        directory = os.path.dirname(script_path)
-        ui_path = directory + r"\resources\SourceInterface.ui"
-        print(ui_path)
-        ui_file = QtCore.QFile(ui_path)
-        ui_file.open(QtCore.QFile.ReadOnly)
-        loader = QtUiTools.QUiLoader()
-        self.window = loader.load(ui_file)
-        #self.lay.addItem(loader.load(ui_file))
-        ui_file.close()
-
-
-        self.show()
+        self.script_path = os.path.realpath(__file__)
+        self.directory = os.path.dirname(self.script_path)
+        self.ui_path = self.directory + r"\resources\SourceInterface.ui"
+        print(self.ui_path)
+        self.ui_file = QtCore.QFile(self.ui_path)
+        self.ui_file.open(QtCore.QFile.ReadOnly)
+        self.loader = QtUiTools.QUiLoader()
+        self.window = self.loader.load(self.ui_file)
+        self.ui_file.close()
+        self.window.setWindowFlags(self.window.windowFlags() ^ QtCore.Qt.WindowStaysOnTopHint)
+        self.window.show()
 
 
 
