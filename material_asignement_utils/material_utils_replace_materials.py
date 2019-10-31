@@ -6,6 +6,7 @@ and replace it by another
 '''
 # standard library import ---------
 import bpy
+import bmesh
 # Local imports ---------
 from . import material_utils_global_variable
 
@@ -124,6 +125,53 @@ class Remove_Unused_Materials(bpy.types.Operator):
     import bpy
 
 
+class Select_Face_By_Mat_Name(bpy.types.Operator):
+    """  Replace materials by linked materials in specified link if found """
+
+    bl_idname = "material_utilities.select_face_by_material"
+    bl_label = "Materials Face Select"
+
+    def execute(self, context):
+
+        if bpy.context.active_object.mode != 'OBJECT':
+            bpy.ops.object.mode_set(mode='OBJECT')
+
+        obj = bpy.data.objects
+        props = context.scene.MaterialReplacePropertyGroup
+        matselect = props.MaterialFaceSelect  # Get mat
+        selobj = []  # mat with mat slots
+
+        for i in obj:
+            at_least_one_mat = False
+
+            for m in i.material_slots:
+                if at_least_one_mat == False:
+                    if m.name == matselect:
+                        print("ajoute ce mesh")
+                        selobj.append(i)
+                        at_least_one_mat = True
+
+        for tosel in selobj:
+            tosel.select_set(True)
+            bpy.context.view_layer.objects.active = tosel
+
+        bpy.ops.object.mode_set(mode='EDIT')
+
+        for msh in bpy.context.objects_in_mode:
+            mshdata = msh.data
+            bm = bmesh.from_edit_mesh(mshdata)
+
+            for mat in bm.faces:
+
+                mat_idx = mat.material_index
+                mat_name = mshdata.materials[mat_idx].name
+
+                if mat_name == matselect:
+                    mat.select = True
+                else:
+                    mat.select = False
+
+        return {'FINISHED'}
 
 # Activate Backface on all materials 
 class Backface_Material(bpy.types.Operator):
@@ -173,24 +221,9 @@ class MaterialSlotsClean(bpy.types.Operator):
 # create and delete a data block to update despgraph
 # And Keep actual selection
 def UpdateDespGraph():
-#    if bpy.context.object.mode == 'EDIT':
-#        bpy.ops.object.mode_set(mode='OBJECT')
-    
-    #bpy.ops.object.select_all(action='DESELECT')
     bpy.ops.mesh.primitive_cube_add()
     bpy.ops.object.delete()
-#Create errors sadly 
-'''    Item = []
-    # Get selected object
-    for obj in bpy.context.selected_objects:
-        Item.append( str(obj.name) )
-    # Hack refresh despgraph
-    bpy.ops.mesh.primitive_cube_add()
-    bpy.ops.object.delete() 
-    # Re-select previously selected object
-    for key in Item :
-        bpy.data.objects[key].select_set(True)
-'''
+
 
 # Replace all materials mtr by mr 
 def MATERIAL_REPLACE(mtr, mr):
@@ -234,11 +267,12 @@ def UpdateProperty():
         # Updated Material Properties
         MaterialToReplace : bpy.props.EnumProperty(items=AllMat)
         MaterialReplace : bpy.props.EnumProperty(items=AllMat)
+        # For face selection
+        MaterialFaceSelect: bpy.props.EnumProperty(items=AllMat)
     
     # Reload Class and property Class
     bpy.utils.register_class(MaterialReplacePropertyGroup)
-    bpy.types.Scene.MaterialReplacePropertyGroup = bpy.props.PointerProperty(
-            type=MaterialReplacePropertyGroup)
+    bpy.types.Scene.MaterialReplacePropertyGroup = bpy.props.PointerProperty(type=MaterialReplacePropertyGroup)
     
     # Set Num in Glogal
     material_utils_global_variable.materialNum = len(bpy.data.materials) 
@@ -318,6 +352,7 @@ classes = [
     Backface_Material,
     NoBackface_Material,
     MaterialSlotsClean,
+    Select_Face_By_Mat_Name,
     ]
 
 

@@ -15,6 +15,7 @@ from . import material_utils_global_variable
 MatToReplace = material_utils_global_variable.allMaterials
 MaterialToReplace = material_utils_global_variable.allMaterials
 LinkedLibrary = material_utils_global_variable.LinkedLibrary
+MaterialFaceSelect = material_utils_global_variable.allMaterials
 
 
 #------------------------------
@@ -73,15 +74,27 @@ class MaterialUtilsPanel(bpy.types.Panel):
         row = layout.row()
         layout.label(text="Cleaning materials")
         box = layout.box()   #----------------- box 
+
         #--   ITERATIVE MATERIAL REPLACE OPERATOR
         row = box.row()
         row.operator("material_utilities.replace_iterative_materials")
+
         #--   ITERATIVE MATERIAL REPLACE OPERATOR
         row = box.row()
         row.operator("material_utilities.remove_unused_materials")
+
         #-- Clean Materials Slots
         row = box.row()
         row.operator("material_utilities.clean_materials_slots")
+
+        # --- Material selection
+        row = layout.row()
+        layout.label(text="Material selection")
+        box = layout.box()  # ----------------- box
+        row = box.row()
+        row.prop(props, "MaterialFaceSelect")
+        row = box.row()
+        row.operator("material_utilities.select_face_by_material")
        
         # --- BackFace/UnbackFace All Material
         #--
@@ -104,7 +117,9 @@ class MaterialReplacePropertyGroup( bpy.types.PropertyGroup ):
     LinkedLibrary : bpy.props.EnumProperty(items=LinkedLibrary) # the same 
     # Init Updated Material Properties
     MaterialReplace : bpy.props.EnumProperty(items=MatToReplace) # Enum of all Materials on the scene
-    MaterialToReplace : bpy.props.EnumProperty(items=MaterialToReplace) # the same 
+    MaterialToReplace : bpy.props.EnumProperty(items=MaterialToReplace) # the same
+    MaterialFaceSelect : bpy.props.EnumProperty(items=MaterialFaceSelect) # the same
+
 
 #------------------------------
 # REGISTER / UNREGISTER / INIT
