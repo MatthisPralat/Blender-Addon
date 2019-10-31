@@ -53,22 +53,26 @@ class MaterialUtilsPanel(bpy.types.Panel):
         # --- MATERIAL REPLACE OPERATOR
         row = box.row()
         row.operator("material_utilities.replace_materials")
-        
-        # --- MATERIAL LINK REPLACE
-        row = layout.row()
-        layout.label(text="Quick Link materials replace ")
 
-        box = layout.box()   #----------------- box 
-        row = box.row()
-        row.operator("material_utilities.replace_material_by_linked_materials")
-      
-        # --- ADVANCED MATERIAL LINK REPLACE
-        layout.label(text="Link Material Replace")
-        box = layout.box()   #----------------- box 
-        row = box.row()
-        row.prop(props, "LinkedLibrary")
-        row = box.row()
-        row.operator("material_utilities.replace_material_linked_advanced")
+        lib = False
+        for mat in bpy.data.materials:
+            if lib == False:
+                if mat.library is not None:
+                    lib = True
+
+                # --- MATERIAL LINK REPLACE
+                    row = layout.row()
+                    layout.label(text="Link Material Replace")
+
+                    box = layout.box()   #----------------- box
+                    row = box.row()
+                    row.operator("material_utilities.replace_material_by_linked_materials")
+
+                    # --- ADVANCED MATERIAL LINK REPLACE
+                    row = box.row()
+                    row.prop(props, "LinkedLibrary")
+                    row = box.row()
+                    row.operator("material_utilities.replace_material_linked_advanced")
         
         # --- CLEANING MATERIALS
         row = layout.row()

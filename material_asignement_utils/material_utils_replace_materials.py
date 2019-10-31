@@ -67,14 +67,13 @@ class Replace_Materials_By_MaterialLinked(bpy.types.Operator):
     """  Replace materials by linked materials if found """
 
     bl_idname = "material_utilities.replace_material_by_linked_materials"
-    bl_label =  "Linked materials Replace"
+    bl_label =  "Quick Link materials Replace"
 
     def execute(self, context):
         LinkedMatIndex = 0
         for mat in bpy.data.materials:
             matname = str(mat.name)
             if mat.library is not None:
-                print('linked')
                 if bpy.data.materials[matname] is not None :
                     if bpy.data.materials[matname].library is None :
                         replaceMatByLinkedMat( LinkedMatIndex , matname )
@@ -88,7 +87,7 @@ class Replace_Materials_Linked_Advanced(bpy.types.Operator):
     """  Replace materials by linked materials in specified link if found """
 
     bl_idname = "material_utilities.replace_material_linked_advanced"
-    bl_label =  "Linked materials Replace"
+    bl_label =  "Linked lib materials Replace"
 
     def execute(self, context):
         print("hello")
