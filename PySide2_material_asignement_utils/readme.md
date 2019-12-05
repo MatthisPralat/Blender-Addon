@@ -37,7 +37,7 @@ You can customise your window style with Qss file, you can find samples in the s
 
 if your importing multiples fbx with the same materials name this button can save time.
 
-! warning : Be sur to have a good naming convention. 
+! warning : Be sure to have a good naming convention. 
 
 replace each **material.xxx** iteration by **material** if it exists.
 
