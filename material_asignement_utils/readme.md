@@ -26,7 +26,7 @@ Replace all similar materials in your scene from linked material specified by yo
 
 if your importing multiples fbx with the same materials name this button can save time.
 
-! warning : Be sur to have a good naming convention. 
+! warning : Be sure to have a good naming convention. 
 
 replace each **material.xxx** iteration by **material** if it exists.
 
